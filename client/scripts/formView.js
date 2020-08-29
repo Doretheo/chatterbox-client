@@ -9,8 +9,19 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    
-    console.log('click!');
+    var $postMessage = $('#message').val();
+    console.log($postMessage);
+    var message = {
+      username: App.username,
+      text: $postMessage
+    };
+    var success = function () {
+      // call a get request so it pulls all the new messages from the server and
+      //console.log('success');
+      App.fetch(App.stopSpinner);
+    };
+    Parse.create(message, success);
+
   },
 
   setStatus: function(active) {
