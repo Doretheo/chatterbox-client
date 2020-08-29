@@ -2,22 +2,33 @@ var MessagesView = {
   // DOM
   $chats: $('#chats'),
 
-  initialize: function() {
+  initialize: function () {
   },
 
   // this function should call template
   // render the message
-  render: function() {
+  render: _.template(`
+    <div class="chat">
+      <div class="username"> <%- username %> </div>
+      <div> <%- text %> </div>
+    </div>
+  `),
+
+
+  renderMessage: function (message) {
+    //var copyMessage = message;
+    message.username = message.username || '';
+    message.text = message.text || '';
+    var $message = $(MessagesView.render(message));
+    $message.appendTo(this.$chats);
   },
 
-  renderMessage: function(message) {
-    //message.appendTo($('#chats'));
-    console.log($('#chats'));
-    var newMessage = message.username + ': ' + message.text;
-    console.log(newMessage);
-    ('#chats').append.render(message);
-    console.log(MessagesView.$chats.children());
+  displayMessages: function (arrayOfMessages) {
+    //loop over data array
+    for (var message of arrayOfMessages) {
+      //  call MassagesView.renderMessage(data[i])
+      MessagesView.renderMessage(message);
+    }
   }
-
-
 };
+

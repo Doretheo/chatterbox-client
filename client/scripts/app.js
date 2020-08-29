@@ -20,9 +20,9 @@ var App = {
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
-
-      callback();
+      //console.log(data);
+      Messages.storage = data.results;
+      callback(MessagesView.displayMessages);
     });
   },
 
@@ -31,8 +31,9 @@ var App = {
     FormView.setStatus(true);
   },
 
-  stopSpinner: function() {
+  stopSpinner: function(callback) {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+    callback(Messages.storage);
   }
 };
