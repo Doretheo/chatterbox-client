@@ -4,23 +4,28 @@ var FormView = {
 
   initialize: function() {
     FormView.$form.on('submit', FormView.handleSubmit);
+
   },
 
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
     var $postMessage = $('#message').val();
-    console.log($postMessage);
+    $('#message').val('');
+
     var message = {
       username: App.username,
       text: $postMessage
     };
     var success = function () {
+      console.log('success');
       // call a get request so it pulls all the new messages from the server and
       //console.log('success');
       App.fetch(App.stopSpinner);
     };
     Parse.create(message, success);
+
+
 
   },
 
